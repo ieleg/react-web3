@@ -16,7 +16,7 @@ git commit -m 'deploy'
 
 # 部署到 https://<USERNAME>.github.io/<REPO>
 # git push -f https://github.com/ieleg/vue3_mapbox.git master:gh-pages
-git push -f git@github.com:ieleg/react-web3.git main:gh-pages
+git push -f https://github.com/ieleg/react-web3.git main:gh-pages
 
 
 cd
