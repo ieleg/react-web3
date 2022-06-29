@@ -6,7 +6,6 @@ export default function Coffee() {
     connectWallet,
     buyCoffee,
     currentAccount,
-    name,
     setName,
     setMessage,
     memos,
@@ -47,24 +46,24 @@ export default function Coffee() {
               <div className="flex items-end justify-end space-x-4">
                 <button
                   type="button"
-                  className="rounded-md border-2 border-main-4 p-2 duration-300 hover:border-main-3"
+                  className=" rounded-md border-2 border-main-4 p-2 text-main-1 duration-300 hover:border-main-3"
                   onClick={() => buyCoffee(0.001)}
                 >
-                  1杯
+                  1CUP
                 </button>
                 <button
                   type="button"
                   className="rounded-md border-2 border-main-4 p-2 duration-300 hover:border-main-3"
                   onClick={() => buyCoffee(0.002)}
                 >
-                  2杯
+                  2CUP
                 </button>
                 <button
                   type="button"
                   className="rounded-md border-2 border-main-4 p-2 duration-300 hover:border-main-3"
                   onClick={() => buyCoffee(100)}
                 >
-                  100杯
+                  100CUP
                 </button>
                 <button
                   type="button"
@@ -77,51 +76,53 @@ export default function Coffee() {
             </form>
           </div>
         ) : (
-          <button onClick={connectWallet}> Connect your wallet </button>
+          <button
+            className="rounded-md border-2 border-main-4 p-2 duration-300 hover:border-main-3"
+            onClick={connectWallet}
+          >
+            {" "}
+            Connect your wallet{" "}
+          </button>
         )}
       </main>
       {<h1>Memos received</h1>}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-        {[0, 1, 2].map((index) => (
-          <div className="space-y-8">
-            {memos
-              .slice(
-                (index * memos.length) / 3,
-                (memos.length / 3) * (index + 1)
-              )
-              .map((memo, idx) => {
-                return (
-                  <figure
-                    key={idx}
-                    className="relative flex flex-col-reverse rounded-lg bg-main-6 p-6 text-sm leading-6"
-                  >
-                    <blockquote className="text-slate-700 dark:text-slate-300 mt-6">
-                      "{memo.message}"
-                    </blockquote>
+      <div className="grid  auto-rows-[20px] gap-3 grid-cols-[repeat(auto-fill_,_minmax(250px,_1fr))]	">
+        {memos
+          .map((memo, idx) => {
+            return (
+              <figure
+                key={idx}
+                className={`relative flex  flex-col-reverse rounded-lg bg-main-6 p-6 text-sm leading-6 ${
+                  memo.message.length > 20
+                    ? "row-[auto/span_12]"
+                    : "row-[auto/span_6]"
+                }`}
+              >
+                <blockquote className="text-slate-700 dark:text-slate-300 mt-6">
+                  "{memo.message}"
+                </blockquote>
 
-                    <div className="flex items-center justify-center gap-2">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-3">
-                        {" "}
-                        {memo.name.slice(0, 1).toUpperCase()}
-                      </div>
-                      <div className="inline-block flex-auto">
-                        <div className="text-slate-900 dark:text-slate-300 text-base font-semibold">
-                          {memo.name}
-                        </div>
-                        <div className="mt-0.5">
-                          {dayjs
-                            .unix(memo.timestamp.toString())
-                            .format("YYYY-MM-DD HH:mm:ss")}
-                        </div>
-                      </div>
+                <div className="flex items-center justify-center gap-2">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-3">
+                    {" "}
+                    {memo.name.slice(0, 1).toUpperCase()}
+                  </div>
+                  <div className="inline-block flex-auto">
+                    <div className="text-slate-900 dark:text-slate-300 text-base font-semibold">
+                      {memo.name}
                     </div>
-                  </figure>
-                );
-              })}
-          </div>
-        ))}
+                    <div className="mt-0.5">
+                      {dayjs
+                        .unix(memo.timestamp.toString())
+                        .format("YYYY-MM-DD HH:mm:ss")}
+                    </div>
+                  </div>
+                </div>
+              </figure>
+            );
+          })}
       </div>
-      <footer className="">
+      <footer className=" text-text-4 text-center mt-3 text-sm">
         <a
           href="https://alchemy.com/?a=roadtoweb3weektwo"
           target="_blank"

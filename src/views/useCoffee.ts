@@ -16,7 +16,7 @@ export const useCoffee = () => {
   const [memos, setMemos] = useState<Memo[]>([]);
   const [balance, useBalance] = useState(0);
   const commonConnect = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise<ethers.Contract>((resolve, reject) => {
       const { ethereum } = window;
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum, "any");
@@ -36,7 +36,7 @@ export const useCoffee = () => {
   const getBalance = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     const balanceBigInt = await provider.getBalance(contractAddress);
-    useBalance(ethers.utils.formatEther(balanceBigInt));
+    useBalance(+ethers.utils.formatEther(balanceBigInt));
     console.log(ethers.utils.formatEther(balanceBigInt));
   };
   // Wallet connection logic
@@ -103,7 +103,7 @@ export const useCoffee = () => {
       return;
     }
     const buyMeACoffee = await commonConnect();
-    const withdrawTxn = await buyMeACoffee.withdrawTips();
+    const withdrawTxn = await buyMeACoffee.withDirectives ();
     await withdrawTxn.wait();
     getBalance();
   };
@@ -115,7 +115,7 @@ export const useCoffee = () => {
     getBalance();
     // Create an event handler function for when someone sends
     // us a new memo.
-    const onNewMemo = (from, timestamp, name, message) => {
+    const onNewMemo = (from: string, timestamp: any, name: string, message: string) => {
       console.log("Memo received: ", from, timestamp, name, message);
       getBalance();
       setMemos((prevState) => {
@@ -125,7 +125,7 @@ export const useCoffee = () => {
         return [
           ...prevState,
           {
-            address: from,
+            from,
             timestamp,
             message,
             name,
@@ -133,7 +133,6 @@ export const useCoffee = () => {
         ];
       });
     };
-    console.log(3333);
 
     commonConnect().then((res) => {
       buyMeACoffee = res;
