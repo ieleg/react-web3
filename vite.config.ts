@@ -7,6 +7,7 @@ import mkcert from "vite-plugin-mkcert";
 
 export default defineConfig(({ command, mode }) => {
   const config: UserConfig = {
+    base: "./",
     server: {
       https: true,
     },
