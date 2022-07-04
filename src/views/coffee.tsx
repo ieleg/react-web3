@@ -13,11 +13,11 @@ export default function Coffee() {
   return (
     <div className=" p-8">
       <main className="">
-        <h1 className="">Buy a Coffee!</h1>
+        <h1 className=" text-4xl font-bold text-center">Buy a Coffee!</h1>
 
         {currentAccount ? (
           <div>
-            <form className="">
+            <form className="flex items-center flex-col my-3">
               <div>
                 <label>Name</label>
                 <br />
@@ -43,7 +43,7 @@ export default function Coffee() {
                   required
                 ></textarea>
               </div>
-              <div className="flex items-end justify-end space-x-4">
+              <div className="flex items-end justify-end space-x-4 my-4">
                 <button
                   type="button"
                   className=" rounded-md border-2 border-main-4 p-2 text-main-1 duration-300 hover:border-main-3"
@@ -77,7 +77,7 @@ export default function Coffee() {
           </div>
         ) : (
           <button
-            className="rounded-md border-2 border-main-4 p-2 duration-300 hover:border-main-3"
+            className="rounded-md border-2 border-main-4 p-2 duration-300 hover:border-main-3 text-center w-full my-2 mx-auto"
             onClick={connectWallet}
           >
             {" "}
@@ -85,7 +85,6 @@ export default function Coffee() {
           </button>
         )}
       </main>
-      {<h1>Memos received</h1>}
       <div className="grid  auto-rows-[20px] gap-3 grid-cols-[repeat(auto-fill_,_minmax(250px,_1fr))]	">
         {memos
           .map((memo, idx) => {

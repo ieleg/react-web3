@@ -18,6 +18,8 @@ export const useCoffee = () => {
   const commonConnect = () => {
     return new Promise<ethers.Contract>((resolve, reject) => {
       const { ethereum } = window;
+      console.log(ethereum);
+      
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum, "any");
         const signer = provider.getSigner();
@@ -67,6 +69,7 @@ export const useCoffee = () => {
       });
 
       setCurrentAccount(accounts[0]);
+      getMemos()
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +106,9 @@ export const useCoffee = () => {
       return;
     }
     const buyMeACoffee = await commonConnect();
-    const withdrawTxn = await buyMeACoffee.withDirectives ();
+    console.log(buyMeACoffee);
+    
+    const withdrawTxn = await buyMeACoffee.withdrawTips();
     await withdrawTxn.wait();
     getBalance();
   };
